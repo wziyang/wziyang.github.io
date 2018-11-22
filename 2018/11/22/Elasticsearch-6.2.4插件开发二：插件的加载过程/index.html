@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta name="description" content="1. 从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
-<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/index.html">
+<meta property="og:title" content="Elasticsearch-6.2.4插件开发二：插件的加载过程">
+<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发二：插件的加载过程/index.html">
 <meta property="og:site_name" content="程序猿小站">
-<meta property="og:description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta property="og:description" content="1. 从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-22T03:08:12.009Z">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule构造函数.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule中高亮插件加载.png">
+<meta property="og:updated_time" content="2018-11-22T03:21:48.705Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
-<meta name="twitter:description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta name="twitter:title" content="Elasticsearch-6.2.4插件开发二：插件的加载过程">
+<meta name="twitter:description" content="1. 从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());">
+<meta name="twitter:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule构造函数.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发二：插件的加载过程/">
 
 
 
 
 
-  <title>Elasticsearch-6.2.4插件开发一：插件种类介绍 | 程序猿小站</title>
+  <title>Elasticsearch-6.2.4插件开发二：插件的加载过程 | 程序猿小站</title>
   
 
 
@@ -253,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发二：插件的加载过程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="橘子">
@@ -270,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4插件开发一：插件种类介绍</h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4插件开发二：插件的加载过程</h1>
         
 
         <div class="post-meta">
@@ -282,7 +285,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-22T11:03:01+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-22T11:20:17+08:00">
                 2018-11-22
               </time>
             
@@ -342,18 +345,17 @@
       
 
       
-        <h1 id="1-插件开发"><a href="#1-插件开发" class="headerlink" title="1. 插件开发"></a>1. 插件开发</h1><p>ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。</p>
-<h1 id="2-插件种类"><a href="#2-插件种类" class="headerlink" title="2. 插件种类"></a>2. 插件种类</h1><p><code>ScriptPlugin</code>：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。</p>
-<p><code>AnalysisPlugin</code>：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。</p>
-<p><code>DiscoveryPlugin</code>：发现插件，使集群可以发现节点，如使建立在AWS上的集群可以发现节点。</p>
-<p><code>ClusterPlugin</code>：集群插件，增强对集群的管理，如控制分片位置。</p>
-<p><code>IngestPlugin</code>：摄取插件，增强节点的ingest功能，例如可以在ingest中通过tika解析ppt、pdf内容。</p>
-<p><code>MapperPlugin</code>：映射插件，可添加新的字段类型。</p>
-<p><code>SearchPlugin</code>：搜索插件，扩展搜索功能，如添加新的搜索类型，高亮类型等。</p>
-<p><code>RepositoryPlugin</code>：存储库插件，可添加新的存储库，如S3，Hadoop HDFS等。</p>
-<p><code>ActionPlugin</code>：API扩展插件，可扩展Http的API接口。</p>
-<p><code>NetworkPlugin</code>：网络插件，扩展ES底层的网络传输功能。</p>
-<p>除了明确属于不同模块的插件接口外，继承抽象类Plugin可以为索引模块添加新的功能，如添加索引、搜索监听器，新的相似度算法。</p>
+        <h1 id="1-从源码看插件的加载过程"><a href="#1-从源码看插件的加载过程" class="headerlink" title="1. 从源码看插件的加载过程"></a>1. 从源码看插件的加载过程</h1><p>插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public Node(Environment environment) &#123;</span><br><span class="line">    this(environment, Collections.emptyList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected Node(final Environment environment, Collection&lt;Class&lt;? extends Plugin&gt;&gt; classpathPlugins) &#123;</span><br><span class="line">    ......</span><br><span class="line">    // 插件服务从以下几个地方加载插件：plugins和modules文件夹、classpathPlugins集合（集合为空，可在开发时使用）</span><br><span class="line">    this.pluginsService = new PluginsService(tmpSettings, environment.configFile(), </span><br><span class="line">        environment.modulesFile(), environment.pluginsFile(), </span><br><span class="line">        classpathPlugins);</span><br><span class="line">    ......</span><br><span class="line">    // 初始化search模块，可以看到实现SearchPlugin接口的插件类将会被过滤出来</span><br><span class="line">    SearchModule searchModule = new SearchModule(settings, false,</span><br><span class="line">        pluginsService.filterPlugins(SearchPlugin.class));</span><br><span class="line">    ......</span><br><span class="line">    // 各个模块整合成搜索服务searchService</span><br><span class="line">    final SearchService searchService = newSearchService(clusterService, indicesService,</span><br><span class="line">        threadPool, scriptModule.getScriptService(), bigArrays, searchModule.getFetchPhase(),</span><br><span class="line">        responseCollectorService);</span><br><span class="line">    ......</span><br><span class="line">    modules.add(b -&gt; &#123;</span><br><span class="line">        ......</span><br><span class="line">        // 注入实例</span><br><span class="line">        b.bind(SearchPhaseController.class).toInstance(new SearchPhaseController(settings,</span><br><span class="line">            searchService::createReduceContext));</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着我们来看pluginsService的构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public PluginsService(Settings settings, Path configPath, Path modulesDirectory, Path pluginsDirectory, Collection&lt;Class&lt;? extends Plugin&gt;&gt; classpathPlugins) &#123;</span><br><span class="line">    ......</span><br><span class="line">    // 以classpathPlugins的形式作为参考，可以看到需要继承Plugin抽象类</span><br><span class="line">    for (Class&lt;? extends Plugin&gt; pluginClass : classpathPlugins) &#123;</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，首先，我们要有一个类继承Plugin类并且某些服务需要实现相应的插件接口（旧版es只需要继承Plugin便可修改各个模块，相关接口现已弃用）才能被发现。</p>
+<h1 id="2-搜索插件的加载过程"><a href="#2-搜索插件的加载过程" class="headerlink" title="2. 搜索插件的加载过程"></a>2. 搜索插件的加载过程</h1><p>接下来我们以搜索插件中的高亮部分为例，看看如何以插件的形式给es添加新的高亮类型。</p>
+<p>首先是searchModule的构造函数：</p>
+<p><img src="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule构造函数.png" alt="img"></p>
+<p>可以看到构造函数中注册了各种搜索模块，而其中就有高亮的注册。</p>
+<p><img src="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule中高亮插件加载.png" alt="img"></p>
+<p>首先加载了3个系统自带的高亮类型，然后加载搜索插件中的高亮部分。</p>
 
       
     </div>
@@ -384,8 +386,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/22/Elasticsearch-6.2.4源码启动（window环境下）/" rel="next" title="Elasticsearch-6.2.4源码启动（window环境下）">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-6.2.4源码启动（window环境下）
+              <a href="/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/" rel="next" title="Elasticsearch-6.2.4插件开发一：插件种类介绍">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-6.2.4插件开发一：插件种类介绍
               </a>
             
           </div>
@@ -393,10 +395,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/22/Elasticsearch-6.2.4插件开发二：插件的加载过程/" rel="prev" title="Elasticsearch-6.2.4插件开发二：插件的加载过程">
-                Elasticsearch-6.2.4插件开发二：插件的加载过程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -546,7 +544,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-插件开发"><span class="nav-number">1.</span> <span class="nav-text">1. 插件开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-插件种类"><span class="nav-number">2.</span> <span class="nav-text">2. 插件种类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-从源码看插件的加载过程"><span class="nav-number">1.</span> <span class="nav-text">1. 从源码看插件的加载过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-搜索插件的加载过程"><span class="nav-number">2.</span> <span class="nav-text">2. 搜索插件的加载过程</span></a></li></ol></div>
             
 
           </div>
