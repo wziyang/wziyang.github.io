@@ -3,6 +3,17 @@
   
     
     <entry>
+      <title></title>
+      <link href="/2018/11/22/Elasticsearch-6.2.4%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%80%EF%BC%9A%E6%8F%92%E4%BB%B6%E7%A7%8D%E7%B1%BB%E4%BB%8B%E7%BB%8D/"/>
+      <url>/2018/11/22/Elasticsearch-6.2.4%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%80%EF%BC%9A%E6%8F%92%E4%BB%B6%E7%A7%8D%E7%B1%BB%E4%BB%8B%E7%BB%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Elasticsearch-6-2-4插件开发一：插件种类介绍"><a href="#Elasticsearch-6-2-4插件开发一：插件种类介绍" class="headerlink" title="Elasticsearch-6.2.4插件开发一：插件种类介绍"></a>Elasticsearch-6.2.4插件开发一：插件种类介绍</h1><h2 id="1-插件开发"><a href="#1-插件开发" class="headerlink" title="1. 插件开发"></a>1. 插件开发</h2><p>ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。</p><h2 id="2-插件种类"><a href="#2-插件种类" class="headerlink" title="2. 插件种类"></a>2. 插件种类</h2><p><code>ScriptPlugin</code>：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。</p><p><code>AnalysisPlugin</code>：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。</p><p><code>DiscoveryPlugin</code>：发现插件，使集群可以发现节点，如使建立在AWS上的集群可以发现节点。</p><p><code>ClusterPlugin</code>：集群插件，增强对集群的管理，如控制分片位置。</p><p><code>IngestPlugin</code>：摄取插件，增强节点的ingest功能，例如可以在ingest中通过tika解析ppt、pdf内容。</p><p><code>MapperPlugin</code>：映射插件，可添加新的字段类型。</p><p><code>SearchPlugin</code>：搜索插件，扩展搜索功能，如添加新的搜索类型，高亮类型等。</p><p><code>RepositoryPlugin</code>：存储库插件，可添加新的存储库，如S3，Hadoop HDFS等。</p><p><code>ActionPlugin</code>：API扩展插件，可扩展Http的API接口。</p><p><code>NetworkPlugin</code>：网络插件，扩展ES底层的网络传输功能。</p><p>除了明确属于不同模块的插件接口外，继承抽象类Plugin可以为索引模块添加新的功能，如添加索引、搜索监听器，新的相似度算法。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>Elasticsearch-6.2.4源码启动（window环境下）</title>
       <link href="/2018/11/22/Elasticsearch-6.2.4%E6%BA%90%E7%A0%81%E5%90%AF%E5%8A%A8%EF%BC%88window%E7%8E%AF%E5%A2%83%E4%B8%8B%EF%BC%89/"/>
       <url>/2018/11/22/Elasticsearch-6.2.4%E6%BA%90%E7%A0%81%E5%90%AF%E5%8A%A8%EF%BC%88window%E7%8E%AF%E5%A2%83%E4%B8%8B%EF%BC%89/</url>
