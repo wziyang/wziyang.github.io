@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Elasticsearch,">
 
 
 
@@ -79,13 +79,30 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="程序猿小站">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Elasticsearch-6.2.4源码启动（window环境下）1. 获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。 1git clone https://github.com/elastic/elasticsearch.git 1git checkout v6.2.4 （本篇博客命令执行皆使用g">
+<meta name="keywords" content="Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-6.2.4源码启动（window环境下）">
+<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4源码启动（window环境下）/index.html">
 <meta property="og:site_name" content="程序猿小站">
+<meta property="og:description" content="Elasticsearch-6.2.4源码启动（window环境下）1. 获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。 1git clone https://github.com/elastic/elasticsearch.git 1git checkout v6.2.4 （本篇博客命令执行皆使用g">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/gradle_idea%E6%8A%A5%E9%94%99.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/config目录下文件.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/配置两个路径.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/没有plugin目录.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/权限问题.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/module缺失.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/类没有.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/classloader没编译.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/compileonly编译.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/勾选设置.png">
+<meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/启动成功.png">
+<meta property="og:updated_time" content="2018-11-22T02:20:30.966Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="程序猿小站">
+<meta name="twitter:title" content="Elasticsearch-6.2.4源码启动（window环境下）">
+<meta name="twitter:description" content="Elasticsearch-6.2.4源码启动（window环境下）1. 获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。 1git clone https://github.com/elastic/elasticsearch.git 1git checkout v6.2.4 （本篇博客命令执行皆使用g">
+<meta name="twitter:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/gradle_idea%E6%8A%A5%E9%94%99.png">
 
 
 
@@ -115,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4源码启动（window环境下）/">
 
 
 
 
 
-  <title>程序猿小站</title>
+  <title>Elasticsearch-6.2.4源码启动（window环境下） | 程序猿小站</title>
   
 
 
@@ -140,8 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -234,9 +250,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -266,9 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/22/Elasticsearch-6.2.4源码启动（window环境下）/" itemprop="url">Elasticsearch-6.2.4源码启动（window环境下）</a></h1>
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4源码启动（window环境下）</h1>
         
 
         <div class="post-meta">
@@ -340,9 +354,7 @@
       
 
       
-        
-          
-            <h1 id="Elasticsearch-6-2-4源码启动（window环境下）"><a href="#Elasticsearch-6-2-4源码启动（window环境下）" class="headerlink" title="Elasticsearch-6.2.4源码启动（window环境下）"></a>Elasticsearch-6.2.4源码启动（window环境下）</h1><h2 id="1-获取源码和可运行的es"><a href="#1-获取源码和可运行的es" class="headerlink" title="1. 获取源码和可运行的es"></a>1. 获取源码和可运行的es</h2><p>1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。</p>
+        <h1 id="Elasticsearch-6-2-4源码启动（window环境下）"><a href="#Elasticsearch-6-2-4源码启动（window环境下）" class="headerlink" title="Elasticsearch-6.2.4源码启动（window环境下）"></a>Elasticsearch-6.2.4源码启动（window环境下）</h1><h2 id="1-获取源码和可运行的es"><a href="#1-获取源码和可运行的es" class="headerlink" title="1. 获取源码和可运行的es"></a>1. 获取源码和可运行的es</h2><p>1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/elastic/elasticsearch.git</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout v6.2.4</span><br></pre></td></tr></table></figure>
 <p>（本篇博客命令执行皆使用git bash）</p>
@@ -391,8 +403,6 @@
 <p>所有问题解决后便可以顺利启动了。</p>
 <p><img src="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/09/启动成功.png" alt="img"></p>
 
-          
-        
       
     </div>
     
@@ -407,314 +417,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/hello-world2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="橘子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://wziyang.github.io/images/miku.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序猿小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/21/hello-world2/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-21T17:57:59+08:00">
-                2018-11-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/test1/" itemprop="url" rel="index">
-                    <span itemprop="name">test1</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="橘子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://wziyang.github.io/images/miku.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序猿小站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/19/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T17:06:16+08:00">
-                2018-11-19
-              </time>
+              <a href="/2018/11/21/hello-world2/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/test2/" itemprop="url" rel="index">
-                    <span itemprop="name">test2</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -724,10 +456,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -735,6 +468,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -755,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -834,6 +580,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch-6-2-4源码启动（window环境下）"><span class="nav-number">1.</span> <span class="nav-text">Elasticsearch-6.2.4源码启动（window环境下）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取源码和可运行的es"><span class="nav-number">1.1.</span> <span class="nav-text">1. 获取源码和可运行的es</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-编译源码"><span class="nav-number">1.2.</span> <span class="nav-text">2. 编译源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-运行es"><span class="nav-number">1.3.</span> <span class="nav-text">3. 运行es</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -974,6 +736,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
