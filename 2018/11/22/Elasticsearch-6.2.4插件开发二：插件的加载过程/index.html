@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="1. 从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());">
+<meta name="description" content="从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());&amp;#1">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elasticsearch-6.2.4插件开发二：插件的加载过程">
 <meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发二：插件的加载过程/index.html">
 <meta property="og:site_name" content="程序猿小站">
-<meta property="og:description" content="1. 从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());">
+<meta property="og:description" content="从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());&amp;#1">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule构造函数.png">
 <meta property="og:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule中高亮插件加载.png">
-<meta property="og:updated_time" content="2018-11-27T09:29:42.199Z">
+<meta property="og:updated_time" content="2018-11-27T09:39:14.452Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch-6.2.4插件开发二：插件的加载过程">
-<meta name="twitter:description" content="1. 从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());">
+<meta name="twitter:description" content="从源码看插件的加载过程插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程： 1234567891011121314151617181920212223242526272829public Node(Environment environment) &amp;#123;    this(environment, Collections.emptyList());&amp;#1">
 <meta name="twitter:image" content="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule构造函数.png">
 
 
@@ -345,12 +345,12 @@
       
 
       
-        <h1 id="1-从源码看插件的加载过程"><a href="#1-从源码看插件的加载过程" class="headerlink" title="1. 从源码看插件的加载过程"></a>1. 从源码看插件的加载过程</h1><p>插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程：</p>
+        <h1 id="从源码看插件的加载过程"><a href="#从源码看插件的加载过程" class="headerlink" title="从源码看插件的加载过程"></a>从源码看插件的加载过程</h1><p>插件是在节点初始化的时候加载的，下面列举出部分关键代码，以搜索服务为例来介绍插件的加载过程：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public Node(Environment environment) &#123;</span><br><span class="line">    this(environment, Collections.emptyList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protected Node(final Environment environment, Collection&lt;Class&lt;? extends Plugin&gt;&gt; classpathPlugins) &#123;</span><br><span class="line">    ......</span><br><span class="line">    // 插件服务从以下几个地方加载插件：plugins和modules文件夹、classpathPlugins集合（集合为空，可在开发时使用）</span><br><span class="line">    this.pluginsService = new PluginsService(tmpSettings, environment.configFile(), </span><br><span class="line">        environment.modulesFile(), environment.pluginsFile(), </span><br><span class="line">        classpathPlugins);</span><br><span class="line">    ......</span><br><span class="line">    // 初始化search模块，可以看到实现SearchPlugin接口的插件类将会被过滤出来</span><br><span class="line">    SearchModule searchModule = new SearchModule(settings, false,</span><br><span class="line">        pluginsService.filterPlugins(SearchPlugin.class));</span><br><span class="line">    ......</span><br><span class="line">    // 各个模块整合成搜索服务searchService</span><br><span class="line">    final SearchService searchService = newSearchService(clusterService, indicesService,</span><br><span class="line">        threadPool, scriptModule.getScriptService(), bigArrays, searchModule.getFetchPhase(),</span><br><span class="line">        responseCollectorService);</span><br><span class="line">    ......</span><br><span class="line">    modules.add(b -&gt; &#123;</span><br><span class="line">        ......</span><br><span class="line">        // 注入实例</span><br><span class="line">        b.bind(SearchPhaseController.class).toInstance(new SearchPhaseController(settings,</span><br><span class="line">            searchService::createReduceContext));</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接着我们来看pluginsService的构造函数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public PluginsService(Settings settings, Path configPath, Path modulesDirectory, Path pluginsDirectory, Collection&lt;Class&lt;? extends Plugin&gt;&gt; classpathPlugins) &#123;</span><br><span class="line">    ......</span><br><span class="line">    // 以classpathPlugins的形式作为参考，可以看到需要继承Plugin抽象类</span><br><span class="line">    for (Class&lt;? extends Plugin&gt; pluginClass : classpathPlugins) &#123;</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以看出，首先，我们要有一个类继承Plugin类并且某些服务需要实现相应的插件接口（旧版es只需要继承Plugin便可修改各个模块，相关接口现已弃用）才能被发现。</p>
-<h1 id="2-搜索插件的加载过程"><a href="#2-搜索插件的加载过程" class="headerlink" title="2. 搜索插件的加载过程"></a>2. 搜索插件的加载过程</h1><p>接下来我们以搜索插件中的高亮部分为例，看看如何以插件的形式给es添加新的高亮类型。</p>
+<h1 id="搜索插件的加载过程"><a href="#搜索插件的加载过程" class="headerlink" title="搜索插件的加载过程"></a>搜索插件的加载过程</h1><p>接下来我们以搜索插件中的高亮部分为例，看看如何以插件的形式给es添加新的高亮类型。</p>
 <p>首先是searchModule的构造函数：</p>
 <p><img src="http://www.wziyang.cn/wordpress/wp-content/uploads/2018/07/searchModule构造函数.png" alt="img"></p>
 <p>可以看到构造函数中注册了各种搜索模块，而其中就有高亮的注册。</p>
@@ -548,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-从源码看插件的加载过程"><span class="nav-number">1.</span> <span class="nav-text">1. 从源码看插件的加载过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-搜索插件的加载过程"><span class="nav-number">2.</span> <span class="nav-text">2. 搜索插件的加载过程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从源码看插件的加载过程"><span class="nav-number">1.</span> <span class="nav-text">从源码看插件的加载过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜索插件的加载过程"><span class="nav-number">2.</span> <span class="nav-text">搜索插件的加载过程</span></a></li></ol></div>
             
 
           </div>

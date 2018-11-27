@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta name="description" content="插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群可以发现节点">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
 <meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/index.html">
 <meta property="og:site_name" content="程序猿小站">
-<meta property="og:description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta property="og:description" content="插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群可以发现节点">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-22T03:08:12.009Z">
+<meta property="og:updated_time" content="2018-11-27T09:39:04.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
-<meta name="twitter:description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta name="twitter:description" content="插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群可以发现节点">
 
 
 
@@ -342,8 +342,8 @@
       
 
       
-        <h1 id="1-插件开发"><a href="#1-插件开发" class="headerlink" title="1. 插件开发"></a>1. 插件开发</h1><p>ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。</p>
-<h1 id="2-插件种类"><a href="#2-插件种类" class="headerlink" title="2. 插件种类"></a>2. 插件种类</h1><p><code>ScriptPlugin</code>：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。</p>
+        <h1 id="插件开发"><a href="#插件开发" class="headerlink" title="插件开发"></a>插件开发</h1><p>ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。</p>
+<h1 id="插件种类"><a href="#插件种类" class="headerlink" title="插件种类"></a>插件种类</h1><p><code>ScriptPlugin</code>：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。</p>
 <p><code>AnalysisPlugin</code>：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。</p>
 <p><code>DiscoveryPlugin</code>：发现插件，使集群可以发现节点，如使建立在AWS上的集群可以发现节点。</p>
 <p><code>ClusterPlugin</code>：集群插件，增强对集群的管理，如控制分片位置。</p>
@@ -546,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-插件开发"><span class="nav-number">1.</span> <span class="nav-text">1. 插件开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-插件种类"><span class="nav-number">2.</span> <span class="nav-text">2. 插件种类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#插件开发"><span class="nav-number">1.</span> <span class="nav-text">插件开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件种类"><span class="nav-number">2.</span> <span class="nav-text">插件种类</span></a></li></ol></div>
             
 
           </div>
