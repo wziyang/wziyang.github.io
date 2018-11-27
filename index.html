@@ -249,6 +249,134 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="橘子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://wziyang.github.io/images/miku.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T14:23:38+08:00">
+                2018-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Elasticsearch-6-2-4插件开发三：高亮插件开发"><a href="#Elasticsearch-6-2-4插件开发三：高亮插件开发" class="headerlink" title="Elasticsearch-6.2.4插件开发三：高亮插件开发"></a>Elasticsearch-6.2.4插件开发三：高亮插件开发</h1><p>首先，我们需要继承<code>Plugin</code>类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看<code>SearchPlugin</code>里的部分代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SearchPlugin</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> List&lt;ScoreFunctionSpec&lt;?&gt;&gt; getScoreFunctions() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtensionSpec&lt;SignificanceHeuristic, SignificanceHeuristicParser&gt;&gt; getSignificanceHeuristics() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtensionSpec&lt;MovAvgModel, MovAvgModel.AbstractModelParser&gt;&gt; getMovingAverageModels() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;FetchSubPhase&gt; <span class="title">getFetchSubPhases</span><span class="params">(FetchPhaseConstructionContext context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtSpec&lt;?&gt;&gt; getSearchExts() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 高亮</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Map&lt;String, Highlighter&gt; <span class="title">getHighlighters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SuggesterSpec&lt;?&gt;&gt; getSuggesters() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;QuerySpec&lt;?&gt;&gt; getQueries() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;AggregationSpec&gt; <span class="title">getAggregations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;PipelineAggregationSpec&gt; <span class="title">getPipelineAggregations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;RescorerSpec&lt;?&gt;&gt; getRescorers() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 以下省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>SearchPlugin</code>下的方法包括了搜索阶段的各种处理，其中就有我们需要的<code>getHighlighters</code>方法，我们只要实现<code>SearchPlugin</code>接口，重写<code>getHighlighter</code>方法即可。</p>
+<p>高亮插件文件结构：</p>
+<p><img src="https://wziyang.github.io/images/插件/高亮插件uml.png" alt="高亮插件uml"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestHighlightSearchPlugin</span> <span class="keyword">extends</span> <span class="title">Plugin</span> <span class="keyword">implements</span> <span class="title">SearchPlugin</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Highlighter&gt; <span class="title">getHighlighters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 返回高亮器</span></span><br><span class="line">        <span class="keyword">return</span> Collections.singletonMap(TestHighlighter.NAME, <span class="keyword">new</span> TestHighlighter());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要返回一个map，key-value具体对应了高亮器的唯一标识，和一个实现了Highlighter接口的高亮器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Highlighter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">HighlightField <span class="title">highlight</span><span class="params">(HighlighterContext highlighterContext)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">canHighlight</span><span class="params">(FieldMapper fieldMapper)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Highlighter</code>接口里面就很简单了，只有两个方法，其中<code>canHighlight</code>中可以定义高亮器的使用限制条件，就像fvh需要设置<code>&quot;term_vector&quot;: &quot;with_positions_offsets&quot;</code>一样，不需要限制的话默认返回true就行；而重点就是<code>highlight</code>方法了，可以在<code>highlighterContext</code>中拿到搜索返回的内容、分析器、分词等，自己定义高亮逻辑。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件源码调试/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -343,7 +471,7 @@
         
           
             <p>正常es测试插件必须把插件打包好并放进plugins目录中，这样是很不方便的。而在源码中开发插件（将插件代码放入es源码里面）就可以不用每次都得把插件编译打包了，org.elasticsearch.node.Node（节点类，es启动时初始化节点的各个部分）的构造函数中就存在一个入口，可以在es启动时将我们的插件类加载进去。（ps：源码启动es可以看另一篇文章）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 这里传入了一个空的集合，从下面可以看出这是插件的集合</span></span><br><span class="line">	<span class="keyword">this</span>(environment, Collections.emptyList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="title">Node</span><span class="params">(<span class="keyword">final</span> Environment environment, Collection&lt;Class&lt;? extends Plugin&gt;&gt; 		classpathPlugins)</span> </span>&#123;</span><br><span class="line"> 	<span class="comment">// 节点初始化操作         </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 这里传入了一个空的集合，从下面可以看出这是插件的集合</span></span><br><span class="line">	<span class="keyword">this</span>(environment, Collections.emptyList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="title">Node</span><span class="params">(<span class="keyword">final</span> Environment environment, Collection&lt;Class&lt;? extends Plugin&gt;&gt; classpathPlugins)</span> </span>&#123;</span><br><span class="line"> 	<span class="comment">// 节点初始化操作         </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于这个入口，可以写一个简单工厂类来加载我们的插件：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Environment environment)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//this(environment, Collections.emptyList());</span></span><br><span class="line">    <span class="keyword">this</span>(environment, CreatePluginClassFactory.createPlugin( <span class="string">"test"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreatePluginClassFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Collection&lt;Class&lt;? extends Plugin&gt;&gt; createPlugin(String ... pluginName) &#123;</span><br><span class="line">        Collection&lt;Class&lt;? extends Plugin&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pluginName.length; i++) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (pluginName[i]) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"test"</span> :</span><br><span class="line">                    <span class="comment">// 继承了Plugin的插件类</span></span><br><span class="line">                    result.add(TestPlugin.class);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -927,7 +1055,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Elasticsearch,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
-<meta name="keywords" content="Elasticsearch">
+<meta name="description" content="Elasticsearch-6.2.4插件开发三：高亮插件开发首先，我们需要继承Plugin类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看SearchPlugin里的部分代码： 1234567891011121314151617181920212223242526272829303132333435363738public">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
-<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/index.html">
+<meta property="og:title" content="程序猿小站">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/index.html">
 <meta property="og:site_name" content="程序猿小站">
-<meta property="og:description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta property="og:description" content="Elasticsearch-6.2.4插件开发三：高亮插件开发首先，我们需要继承Plugin类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看SearchPlugin里的部分代码： 1234567891011121314151617181920212223242526272829303132333435363738public">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-22T03:08:12.009Z">
+<meta property="og:image" content="https://wziyang.github.io/images/插件/高亮插件uml.png">
+<meta property="og:updated_time" content="2018-11-27T06:28:13.320Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
-<meta name="twitter:description" content="1. 插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。 2. 插件种类ScriptPlugin：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。 AnalysisPlugin：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。 DiscoveryPlugin：发现插件，使集群">
+<meta name="twitter:title" content="程序猿小站">
+<meta name="twitter:description" content="Elasticsearch-6.2.4插件开发三：高亮插件开发首先，我们需要继承Plugin类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看SearchPlugin里的部分代码： 1234567891011121314151617181920212223242526272829303132333435363738public">
+<meta name="twitter:image" content="https://wziyang.github.io/images/插件/高亮插件uml.png">
 
 
 
@@ -120,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/">
 
 
 
 
 
-  <title>Elasticsearch-6.2.4插件开发一：插件种类介绍 | 程序猿小站</title>
+  <title> | 程序猿小站</title>
   
 
 
@@ -253,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="橘子">
@@ -270,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4插件开发一：插件种类介绍</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -282,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-22T11:03:01+08:00">
-                2018-11-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T14:23:38+08:00">
+                2018-11-27
               </time>
             
 
@@ -292,28 +293,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -342,18 +321,15 @@
       
 
       
-        <h1 id="1-插件开发"><a href="#1-插件开发" class="headerlink" title="1. 插件开发"></a>1. 插件开发</h1><p>ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。</p>
-<h1 id="2-插件种类"><a href="#2-插件种类" class="headerlink" title="2. 插件种类"></a>2. 插件种类</h1><p><code>ScriptPlugin</code>：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。</p>
-<p><code>AnalysisPlugin</code>：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。</p>
-<p><code>DiscoveryPlugin</code>：发现插件，使集群可以发现节点，如使建立在AWS上的集群可以发现节点。</p>
-<p><code>ClusterPlugin</code>：集群插件，增强对集群的管理，如控制分片位置。</p>
-<p><code>IngestPlugin</code>：摄取插件，增强节点的ingest功能，例如可以在ingest中通过tika解析ppt、pdf内容。</p>
-<p><code>MapperPlugin</code>：映射插件，可添加新的字段类型。</p>
-<p><code>SearchPlugin</code>：搜索插件，扩展搜索功能，如添加新的搜索类型，高亮类型等。</p>
-<p><code>RepositoryPlugin</code>：存储库插件，可添加新的存储库，如S3，Hadoop HDFS等。</p>
-<p><code>ActionPlugin</code>：API扩展插件，可扩展Http的API接口。</p>
-<p><code>NetworkPlugin</code>：网络插件，扩展ES底层的网络传输功能。</p>
-<p>除了明确属于不同模块的插件接口外，继承抽象类Plugin可以为索引模块添加新的功能，如添加索引、搜索监听器，新的相似度算法。</p>
+        <h1 id="Elasticsearch-6-2-4插件开发三：高亮插件开发"><a href="#Elasticsearch-6-2-4插件开发三：高亮插件开发" class="headerlink" title="Elasticsearch-6.2.4插件开发三：高亮插件开发"></a>Elasticsearch-6.2.4插件开发三：高亮插件开发</h1><p>首先，我们需要继承<code>Plugin</code>类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看<code>SearchPlugin</code>里的部分代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SearchPlugin</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> List&lt;ScoreFunctionSpec&lt;?&gt;&gt; getScoreFunctions() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtensionSpec&lt;SignificanceHeuristic, SignificanceHeuristicParser&gt;&gt; getSignificanceHeuristics() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtensionSpec&lt;MovAvgModel, MovAvgModel.AbstractModelParser&gt;&gt; getMovingAverageModels() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;FetchSubPhase&gt; <span class="title">getFetchSubPhases</span><span class="params">(FetchPhaseConstructionContext context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtSpec&lt;?&gt;&gt; getSearchExts() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 高亮</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Map&lt;String, Highlighter&gt; <span class="title">getHighlighters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SuggesterSpec&lt;?&gt;&gt; getSuggesters() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;QuerySpec&lt;?&gt;&gt; getQueries() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;AggregationSpec&gt; <span class="title">getAggregations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;PipelineAggregationSpec&gt; <span class="title">getPipelineAggregations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;RescorerSpec&lt;?&gt;&gt; getRescorers() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 以下省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>SearchPlugin</code>下的方法包括了搜索阶段的各种处理，其中就有我们需要的<code>getHighlighters</code>方法，我们只要实现<code>SearchPlugin</code>接口，重写<code>getHighlighter</code>方法即可。</p>
+<p>高亮插件文件结构：</p>
+<p><img src="https://wziyang.github.io/images/插件/高亮插件uml.png" alt="高亮插件uml"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestHighlightSearchPlugin</span> <span class="keyword">extends</span> <span class="title">Plugin</span> <span class="keyword">implements</span> <span class="title">SearchPlugin</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Highlighter&gt; <span class="title">getHighlighters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 返回高亮器</span></span><br><span class="line">        <span class="keyword">return</span> Collections.singletonMap(TestHighlighter.NAME, <span class="keyword">new</span> TestHighlighter());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要返回一个map，key-value具体对应了高亮器的唯一标识，和一个实现了Highlighter接口的高亮器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Highlighter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">HighlightField <span class="title">highlight</span><span class="params">(HighlighterContext highlighterContext)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">canHighlight</span><span class="params">(FieldMapper fieldMapper)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Highlighter</code>接口里面就很简单了，只有两个方法，其中<code>canHighlight</code>中可以定义高亮器的使用限制条件，就像fvh需要设置<code>&quot;term_vector&quot;: &quot;with_positions_offsets&quot;</code>一样，不需要限制的话默认返回true就行；而重点就是<code>highlight</code>方法了，可以在<code>highlighterContext</code>中拿到搜索返回的内容、分析器、分词等，自己定义高亮逻辑。</p>
 
       
     </div>
@@ -369,12 +345,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
-          
-        </div>
-      
 
       
       
@@ -384,8 +354,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/22/Elasticsearch-6.2.4源码启动（window环境下）/" rel="next" title="Elasticsearch-6.2.4源码启动（window环境下）">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-6.2.4源码启动（window环境下）
+              <a href="/2018/11/27/Elasticsearch-6.2.4插件源码调试/" rel="next" title="Elasticsearch-6.2.4插件源码调试">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-6.2.4插件源码调试
               </a>
             
           </div>
@@ -393,10 +363,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/22/Elasticsearch-6.2.4插件开发二：插件的加载过程/" rel="prev" title="Elasticsearch-6.2.4插件开发二：插件的加载过程">
-                Elasticsearch-6.2.4插件开发二：插件的加载过程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -546,7 +512,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-插件开发"><span class="nav-number">1.</span> <span class="nav-text">1. 插件开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-插件种类"><span class="nav-number">2.</span> <span class="nav-text">2. 插件种类</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch-6-2-4插件开发三：高亮插件开发"><span class="nav-number">1.</span> <span class="nav-text">Elasticsearch-6.2.4插件开发三：高亮插件开发</span></a></li></ol></div>
             
 
           </div>
