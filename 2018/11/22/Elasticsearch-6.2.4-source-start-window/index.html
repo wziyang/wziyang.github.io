@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="antSZ4q3U07l6AVR27mYUXUoB-Z-pgwrIRbGj4QR09A">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,源码,idea,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。">
+<meta name="keywords" content="Elasticsearch,源码,idea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-6.2.4源码启动（window环境下）">
+<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4-source-start-window/index.html">
+<meta property="og:site_name" content="程序猿小站">
+<meta property="og:description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/gradle_idea报错.PNG">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/config目录下文件.PNG">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/配置路径.png">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/没有plugin目录.PNG">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/权限问题.PNG">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/module缺失.PNG">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/类没有.PNG">
+<meta property="og:image" content="https://wziyang.github.io/images/源码启动/勾选传递依赖设置.png">
+<meta property="og:updated_time" content="2018-11-28T03:23:32.285Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-6.2.4源码启动（window环境下）">
+<meta name="twitter:description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。">
+<meta name="twitter:image" content="https://wziyang.github.io/images/源码启动/gradle_idea报错.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '橘子'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4-source-start-window/">
+
+
+
+
+
+  <title>Elasticsearch-6.2.4源码启动（window环境下） | 程序猿小站</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-129866347-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序猿小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4-source-start-window/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="橘子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://wziyang.github.io/images/miku.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4源码启动（window环境下）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-22T10:37:37+08:00">
+                2018-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="获取源码和可运行的es"><a href="#获取源码和可运行的es" class="headerlink" title="获取源码和可运行的es"></a>获取源码和可运行的es</h1><p>1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。</p>
+<a id="more"></a>
+<p>git clone <a href="https://github.com/elastic/elasticsearch.git" target="_blank" rel="noopener">https://github.com/elastic/elasticsearch.git</a></p>
+<p>git checkout v6.2.4</p>
+<p>（本篇博客命令执行皆使用git bash）</p>
+<p>1.2 到官网下载可运行的es</p>
+<h1 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h1><p>es是一个gradle项目，导入idea前需执行 gradle idea 命令，不然会报错。</p>
+<p><img src="https://wziyang.github.io/images/源码启动/gradle_idea报错.PNG" alt="img"></p>
+<p>使用项目自带的gradlew编译es源码</p>
+<p>./gradlew idea</p>
+<p>./gradlew build</p>
+<p>（IDE是eclipse的话则将命令中idea替换成eclipse）</p>
+<p>国内可能部分包下载不了，可添加gradle国内镜像，在用户目录下的.gradle中新建init.gradle文件：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">allprojects&#123;</span><br><span class="line">	buildscript &#123;</span><br><span class="line">        repositories &#123;</span><br><span class="line">            maven &#123; url <span class="string">"https://maven.aliyun.com/repository/public"</span> &#125;</span><br><span class="line">			jcenter()&#123; url <span class="string">'http://jcenter.bintray.com/'</span> &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    repositories &#123;</span><br><span class="line">		maven &#123; url <span class="string">"http://maven.aliyun.com/nexus/content/groups/public/"</span> &#125;</span><br><span class="line">		<span class="comment">// 将jcenter的连接改为http</span></span><br><span class="line">		jcenter()&#123; url <span class="string">'http://jcenter.bintray.com/'</span> &#125;</span><br><span class="line">		</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译完成后便可用idea打开项目。</p>
+<h1 id="运行es"><a href="#运行es" class="headerlink" title="运行es"></a>运行es</h1><p>如何从源码运行es？</p>
+<p>我们先参考官网下载的es中，bin目录下的启动脚本elasticsearch，elasticsearch-env</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(只列出关键部分，其余省略)</span><br><span class="line">SCRIPT=<span class="string">"<span class="variable">$0</span>"</span></span><br><span class="line">ES_HOME=`dirname <span class="string">"<span class="variable">$SCRIPT</span>"</span>`</span><br><span class="line">ES_PATH_CONF=<span class="string">"<span class="variable">$ES_HOME</span>"</span>/config</span><br><span class="line">......</span><br><span class="line"><span class="string">"<span class="variable">$JAVA</span>"</span> \</span><br><span class="line"><span class="variable">$ES_JAVA_OPTS</span> \</span><br><span class="line">-Des.path.home=<span class="string">"<span class="variable">$ES_HOME</span>"</span> \</span><br><span class="line">-Des.path.conf=<span class="string">"<span class="variable">$ES_PATH_CONF</span>"</span> \</span><br><span class="line">-cp <span class="string">"<span class="variable">$ES_CLASSPATH</span>"</span> \</span><br><span class="line">org.elasticsearch.bootstrap.Elasticsearch \</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>可见，es的启动入口为org.elasticsearch.bootstrap.Elasticsearch；</p>
+<p>es启动需要配置两个启动参数es.path.home和es.path.conf</p>
+<p>其中es.path.home是es服务的路径，即es项目中server目录下，es.path.conf为配置文件目录，在server目录下创建config文件夹作为配置文件目录，并直接从官网的es中copy三个配置文件（此处不详解文件具体内容）。</p>
+<p><img src="https://wziyang.github.io/images/源码启动/config目录下文件.PNG" alt="img"></p>
+<p>打开idea配置两个启动参数（直接绝对路径即可）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-Des.path.conf=E:\......\elasticsearch\server\config</span><br><span class="line">-Des.path.home=E:\......\elasticsearch\server</span><br></pre></td></tr></table></figure>
+<p>在idea顶层菜单打开Run&gt;Edit Configurations，配置VM options</p>
+<p><img src="https://wziyang.github.io/images/源码启动/配置路径.png" alt="img"></p>
+<p>接下来我们启动试一试：org.elasticsearch.bootstrap.Elasticsearch</p>
+<p>直接执行main方法，发现启动失败，出现几个异常：</p>
+<p>第一个</p>
+<p><img src="https://wziyang.github.io/images/源码启动/没有plugin目录.PNG" alt="img"></p>
+<p>原因是es启动时会去扫描主目录下的plugins目录，加载es插件（插件方面将在其他文章说明），所以要创建plugins目录。</p>
+<p>第二个</p>
+<p><img src="https://wziyang.github.io/images/源码启动/权限问题.PNG" alt="img"></p>
+<p>原因是用户没有操作目录的权限</p>
+<p>直接在server目录下建立java.policy文件：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">grant codeBase <span class="string">"file:$&#123;&#123;java.ext.dirs&#125;&#125;/*"</span> &#123;</span><br><span class="line">        permission java.security.AllPermission;</span><br><span class="line">        permission java.lang.RuntimePermission <span class="string">"createClassLoader"</span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">grant &#123;</span><br><span class="line">        permission java.security.AllPermission;</span><br><span class="line">        permission java.lang.RuntimePermission <span class="string">"createClassLoader"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>VM options的配置增加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-Des.path.conf=E:\......\elasticsearch\server\config</span><br><span class="line">-Des.path.home=E:\......\elasticsearch\server</span><br><span class="line">-Djava.security.policy=E:\......\elasticsearch\server\java.policy</span><br></pre></td></tr></table></figure>
+<p>第三个</p>
+<p><img src="https://wziyang.github.io/images/源码启动/module缺失.PNG" alt="img"></p>
+<p>原因是相关模块的缺失，es加载为空，直接把官网的es中的modules文件夹整个复制到server目录下就行。</p>
+<p>第四个</p>
+<p><img src="https://wziyang.github.io/images/源码启动/类没有.PNG" alt="img"></p>
+<p>ExtendedPluginsClassLoader这个类并没有编译出来</p>
+<p>至于原因，我们可以在单元测试类test/org.elasticsearch.bootstrap.BootstrapForTesting中看到这一段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (System.getProperty(<span class="string">"tests.gradle"</span>) == <span class="keyword">null</span>) &#123;</span><br><span class="line">	<span class="comment">// intellij and eclipse don't package our internal libs, so we need to set the codebases for them manually</span></span><br><span class="line">	addClassCodebase(codebases,<span class="string">"plugin-classloader"</span>, <span class="string">"org.elasticsearch.plugins.ExtendedPluginsClassLoader"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 而idea并不会打包内置的依赖，即传递依赖，在server的build.gradle中：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  ......</span><br><span class="line">  compileOnly project(<span class="string">':libs:plugin-classloader'</span>)</span><br><span class="line">  testRuntime project(<span class="string">':libs:plugin-classloader'</span>)</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到plugin-classloader的编译类型是compileOnly和testRuntime，只在编译阶段编译，在运行阶段不会将这个依赖包括进来，idea是默认不会运行时不包括传递依赖的，可以在这里勾选设置启动将包括该类传递依赖</p>
+<p><img src="https://wziyang.github.io/images/源码启动/勾选传递依赖设置.png" alt="勾选传递依赖设置"></p>
+<p>所有问题解决后便可以顺利启动了。</p>
+
+      
+    </div>
+    
+    
+    
+    <div>
+          
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>文章作者:</span><a href="/" title="访问 橘子 的个人博客">橘子</a></p>
+  <p><span>最后更新:</span>2018年11月28日 11:11:32</p>
+  <p><span>原始链接:</span><a href="/2018/11/22/Elasticsearch-6.2.4-source-start-window/" title="Elasticsearch-6.2.4源码启动（window环境下）">https://wziyang.github.io/2018/11/22/Elasticsearch-6.2.4-source-start-window/</a></p>
+  <p><span>版权声明:</span>本博客所有文章除特别声明外，均采用 <i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" title="Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)"> BY-NC-SA 3.0 许可协议</a>，转载请注明出处！</p>  
+</div>
+
+          
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
+          
+            <a href="/tags/源码/" rel="tag"># 源码</a>
+          
+            <a href="/tags/idea/" rel="tag"># idea</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/22/Elasticsearch-6.2.4-plugin-1-kind/" rel="prev" title="Elasticsearch-6.2.4插件开发一：插件种类介绍">
+                Elasticsearch-6.2.4插件开发一：插件种类介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTMyMy8xNzg3MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://wziyang.github.io/images/miku.jpg" alt="橘子">
+            
+              <p class="site-author-name" itemprop="name">橘子</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wziyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:877276883@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#获取源码和可运行的es"><span class="nav-number">1.</span> <span class="nav-text">获取源码和可运行的es</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译源码"><span class="nav-number">2.</span> <span class="nav-text">编译源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行es"><span class="nav-number">3.</span> <span class="nav-text">运行es</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">橘子</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "vertical";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "default";
+      
+          flOptions.boxForm = "vertical";
+      
+          flOptions.position = "topRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

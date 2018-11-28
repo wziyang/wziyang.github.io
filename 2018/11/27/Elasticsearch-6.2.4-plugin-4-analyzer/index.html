@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="antSZ4q3U07l6AVR27mYUXUoB-Z-pgwrIRbGj4QR09A">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elasticsearch,插件,Analyzer,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分析器介绍分析器内部分为Analyzer、CharFilter、Tokenizer、TokenFilter。">
+<meta name="keywords" content="Elasticsearch,插件,Analyzer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch-6.2.4插件开发四：分析插件开发">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4-plugin-4-analyzer/index.html">
+<meta property="og:site_name" content="程序猿小站">
+<meta property="og:description" content="分析器介绍分析器内部分为Analyzer、CharFilter、Tokenizer、TokenFilter。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://wziyang.github.io/images/插件/Signatures.svg">
+<meta property="og:image" content="https://wziyang.github.io/images/插件/分析插件uml.png">
+<meta property="og:updated_time" content="2018-11-28T03:22:51.713Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch-6.2.4插件开发四：分析插件开发">
+<meta name="twitter:description" content="分析器介绍分析器内部分为Analyzer、CharFilter、Tokenizer、TokenFilter。">
+<meta name="twitter:image" content="https://wziyang.github.io/images/插件/Signatures.svg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '橘子'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4-plugin-4-analyzer/">
+
+
+
+
+
+  <title>Elasticsearch-6.2.4插件开发四：分析插件开发 | 程序猿小站</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-129866347-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序猿小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4-plugin-4-analyzer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="橘子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://wziyang.github.io/images/miku.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4插件开发四：分析插件开发</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T17:23:21+08:00">
+                2018-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
+                    <span itemprop="name">Elasticsearch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分析器介绍"><a href="#分析器介绍" class="headerlink" title="分析器介绍"></a>分析器介绍</h1><p>分析器内部分为<code>Analyzer</code>、<code>CharFilter</code>、<code>Tokenizer</code>、<code>TokenFilter</code>。</p>
+<a id="more"></a>
+<p>其中<code>Analyzer</code>由其他三部分组成，<code>Tokenizer</code>为必要部分，其他两个非必要。</p>
+<p>数据进入分析器的流程：</p>
+<p><img src="https://wziyang.github.io/images/插件/Signatures.svg" alt="Analyzer Pipeline"></p>
+<ul>
+<li><p>Analyzer：分析器，对数据进行过滤、分词等操作</p>
+</li>
+<li><p>CharFilter：字符过滤器，最开始处理数据，过滤指定字符，如html标签过滤</p>
+</li>
+<li><p>Tokenizer：分词器，对数据进行分词操作，作为Analyzer的核心</p>
+</li>
+<li><p>TokenFilter：分词过滤器，对分词进行过滤，如lowercase将分词中存在的大写字母过滤成小写</p>
+</li>
+</ul>
+<h1 id="分词结果解析"><a href="#分词结果解析" class="headerlink" title="分词结果解析"></a>分词结果解析</h1><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET _analyze</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"analyzer"</span>: <span class="string">"standard"</span>,</span><br><span class="line">  <span class="attr">"text"</span>: [<span class="string">"测试test"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"tokens"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"token"</span>: <span class="string">"测"</span>,</span><br><span class="line">      <span class="attr">"start_offset"</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">"end_offset"</span>: <span class="number">1</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"&lt;IDEOGRAPHIC&gt;"</span>,</span><br><span class="line">      <span class="attr">"position"</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"token"</span>: <span class="string">"试"</span>,</span><br><span class="line">      <span class="attr">"start_offset"</span>: <span class="number">1</span>,</span><br><span class="line">      <span class="attr">"end_offset"</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"&lt;IDEOGRAPHIC&gt;"</span>,</span><br><span class="line">      <span class="attr">"position"</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"token"</span>: <span class="string">"test"</span>,</span><br><span class="line">      <span class="attr">"start_offset"</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">"end_offset"</span>: <span class="number">6</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"&lt;ALPHANUM&gt;"</span>,</span><br><span class="line">      <span class="attr">"position"</span>: <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文本经过分词后会返回一个分词数组：</p>
+<ul>
+<li><p><code>token</code>表示分词</p>
+</li>
+<li><p><code>start_offset</code>和<code>end_offset</code>表示该分词在文本中的偏移位置</p>
+</li>
+<li><p><code>type</code>表示该分词的类型</p>
+</li>
+<li><p><code>position</code>表示分词的位置，注：match_phrase以<code>position</code>为标准</p>
+</li>
+</ul>
+<h1 id="插件类"><a href="#插件类" class="headerlink" title="插件类"></a>插件类</h1><p>插件类需要继承Plugin类以及实现AnalysisPlugin接口，实现AnalysisPlugin接口可以重新其中的方法来提供指定的分析器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnalysisPlugin</span> </span>&#123;</span><br><span class="line">    <span class="keyword">default</span> Map&lt;String, AnalysisProvider&lt;CharFilterFactory&gt;&gt; getCharFilters() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> Map&lt;String, AnalysisProvider&lt;TokenFilterFactory&gt;&gt; getTokenFilters() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> Map&lt;String, AnalysisProvider&lt;TokenizerFactory&gt;&gt; getTokenizers() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> Map&lt;String, AnalysisProvider&lt;AnalyzerProvider&lt;? extends Analyzer&gt;&gt;&gt; getAnalyzers() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Tokenizer开发"><a href="#Tokenizer开发" class="headerlink" title="Tokenizer开发"></a>Tokenizer开发</h1><p>Tokenizer文件结构：</p>
+<p><img src="https://wziyang.github.io/images/插件/分析插件uml.png" alt="分析插件uml"></p>
+<p>插件类中重写<code>getTokenizers</code> 方法，添加分词器工厂：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAnalyzerPlugin</span> <span class="keyword">extends</span> <span class="title">Plugin</span> <span class="keyword">implements</span> <span class="title">AnalysisPlugin</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Map&lt;String, AnalysisProvider&lt;TokenizerFactory&gt;&gt; getTokenizers() &#123;</span><br><span class="line">        Map&lt;String, AnalysisProvider&lt;TokenizerFactory&gt;&gt; tokenizers = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        tokenizers.put(<span class="string">"test"</span>, TestTokenizerFactory::<span class="keyword">new</span>);</span><br><span class="line">        <span class="keyword">return</span> tokenizers;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义TokenizerFactory：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTokenizerFactory</span> <span class="keyword">extends</span> <span class="title">AbstractTokenizerFactory</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 自己定义配置类，非必须</span></span><br><span class="line">    <span class="keyword">private</span> AnalysisConfig config;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestTokenizerFactory</span><span class="params">(IndexSettings indexSettings, Environment env, String name, Settings settings)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(indexSettings, name, settings);</span><br><span class="line">        <span class="comment">// 可在设置tokenizer时读取相关配置</span></span><br><span class="line">        <span class="keyword">this</span>.config = <span class="keyword">new</span> AnalysisConfig(settings);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Tokenizer <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 构建tokenizer</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TestTokenizer(<span class="keyword">this</span>.config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnalysisConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> testConfig = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AnalysisConfig</span><span class="params">(Settings settings)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 在setting中读取配置，如果没有则默认为true</span></span><br><span class="line">        <span class="keyword">this</span>.testConfig = settings.getAsBoolean(<span class="string">"testConfig"</span>, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isTestConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> testConfig;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Tokenizer：</p>
+<p>在此之前，先看看外部对分析器的调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取分析器的tokenStream，如果该分析器中只包括了Tokenizer，则tokenStream就是该分析器的Tokenizer</span></span><br><span class="line">TokenStream tokenStream = analyzer.tokenStream(fieldName, contents))；</span><br><span class="line">tokenStream.reset();</span><br><span class="line"><span class="comment">// 循环调用，每次获取一个分词</span></span><br><span class="line"><span class="keyword">while</span> (tokenStream.incrementToken()) &#123;</span><br><span class="line">    <span class="comment">// 得到分词的偏移量</span></span><br><span class="line">    OffsetAttribute attr = tokenStream.getAttribute(OffsetAttribute.class);</span><br><span class="line">&#125;</span><br><span class="line">tokenStream.end();</span><br></pre></td></tr></table></figure>
+<p>定义Tokenizer：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTokenizer</span> <span class="keyword">extends</span> <span class="title">Tokenizer</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 分词结果</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> CharTermAttribute termAtt = addAttribute(CharTermAttribute.class);</span><br><span class="line">    <span class="comment">// 偏移量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> OffsetAttribute offsetAtt = addAttribute(OffsetAttribute.class);</span><br><span class="line">    <span class="comment">// 位置</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PositionIncrementAttribute posIncrAtt = addAttribute(PositionIncrementAttribute.class);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> AnalysisConfig config;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestTokenizer</span><span class="params">(AnalysisConfig config)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.config = config;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 分词前执行，如果有设置变量需要在这里清理资源</span></span><br><span class="line">        <span class="keyword">super</span>.reset();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">end</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.end();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 将循环调用改方法</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">incrementToken</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 清理上一次分词的数据</span></span><br><span class="line">        clearAttributes();</span><br><span class="line">		<span class="comment">// 从Reader中读出数据：input.read()，可存在局部变量之中</span></span><br><span class="line">        <span class="comment">// 存储分词信息</span></span><br><span class="line">        termAtt.append(term);</span><br><span class="line">        offsetAtt.setOffset(startOffset, endOffset);</span><br><span class="line">        posIncrAtt.setPositionIncrement(offset);</span><br><span class="line">        <span class="comment">// 返回true表示分词还没结束</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+    <div>
+          
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>文章作者:</span><a href="/" title="访问 橘子 的个人博客">橘子</a></p>
+  <p><span>最后更新:</span>2018年11月28日 11:11:51</p>
+  <p><span>原始链接:</span><a href="/2018/11/27/Elasticsearch-6.2.4-plugin-4-analyzer/" title="Elasticsearch-6.2.4插件开发四：分析插件开发">https://wziyang.github.io/2018/11/27/Elasticsearch-6.2.4-plugin-4-analyzer/</a></p>
+  <p><span>版权声明:</span>本博客所有文章除特别声明外，均采用 <i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" title="Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)"> BY-NC-SA 3.0 许可协议</a>，转载请注明出处！</p>  
+</div>
+
+          
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
+          
+            <a href="/tags/插件/" rel="tag"># 插件</a>
+          
+            <a href="/tags/Analyzer/" rel="tag"># Analyzer</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/27/Elasticsearch-6.2.4-plugin-3-highlight/" rel="next" title="Elasticsearch-6.2.4插件开发三：高亮插件开发">
+                <i class="fa fa-chevron-left"></i> Elasticsearch-6.2.4插件开发三：高亮插件开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/28/Hadoop-2.9.0-install-linux/" rel="prev" title="Hadoop-2.9.0，linux单机安装">
+                Hadoop-2.9.0，linux单机安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTMyMy8xNzg3MA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://wziyang.github.io/images/miku.jpg" alt="橘子">
+            
+              <p class="site-author-name" itemprop="name">橘子</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wziyang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:877276883@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分析器介绍"><span class="nav-number">1.</span> <span class="nav-text">分析器介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分词结果解析"><span class="nav-number">2.</span> <span class="nav-text">分词结果解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件类"><span class="nav-number">3.</span> <span class="nav-text">插件类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tokenizer开发"><span class="nav-number">4.</span> <span class="nav-text">Tokenizer开发</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">橘子</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "default";
+      
+          pbOptions.boxForm = "vertical";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "default";
+      
+          flOptions.boxForm = "vertical";
+      
+          flOptions.position = "topRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
