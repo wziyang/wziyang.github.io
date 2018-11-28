@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-28T03:59:20.260Z</updated>
+  <updated>2018-11-28T04:00:43.021Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,16 +21,15 @@
     <link href="http://yoursite.com/2018/11/28/Hadoop%E7%A4%BA%E4%BE%8B%EF%BC%9Awordcount/"/>
     <id>http://yoursite.com/2018/11/28/Hadoop示例：wordcount/</id>
     <published>2018-11-28T03:49:23.757Z</published>
-    <updated>2018-11-28T03:59:20.260Z</updated>
+    <updated>2018-11-28T04:00:43.021Z</updated>
     
-    <content type="html"><![CDATA[<p>附：Hadoop-2.9.0 fs shell：<a href="http://hadoop.apache.org/docs/r2.9.0/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="noopener">http://hadoop.apache.org/docs/r2.9.0/hadoop-project-dist/hadoop-common/FileSystemShell.html</a></p><h1 id="启动Hadoop"><a href="#启动Hadoop" class="headerlink" title="启动Hadoop"></a>启动Hadoop</h1><p><code>./start-all.sh</code></p><p>通过jps指令查看是否正常启动：</p><p><img src="https://wziyang.github.io/images/hadoop/jps.png" alt="img"></p><h1 id="在HDFS中创建input目录"><a href="#在HDFS中创建input目录" class="headerlink" title="在HDFS中创建input目录"></a>在HDFS中创建input目录</h1><p><code>hadoop fs -mkdir /input</code></p><p>创建结果：</p><p><code>hadoop fs -ls /</code></p><p><img src="https://wziyang.github.io/images/hadoop/fs_ls.png" alt="img"></p><h1 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h1><p>输入文件：wordcount</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello world hadoop</span><br><span class="line">hello hello hadoop world hello</span><br><span class="line">hadoop world world hello hadoop</span><br></pre></td></tr></table></figure><p>上传：</p><p><code>hadoop fs -put wordcount /input</code></p><h1 id="调用wordcount示例"><a href="#调用wordcount示例" class="headerlink" title="调用wordcount示例"></a>调用wordcount示例</h1><p>调用示例：将/input/wordcount作为输入文件，并将结果输出到/output目录中（输出目录会自动创建）</p><p><code>hadoop jar /var/local/hadoop-2.9.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.0.jarwordcount /input/wordcount /output</code><br>处理过程：</p><p><img src="https://wziyang.github.io/images/hadoop/wordcount处理.png" alt="img"></p><h1 id="查看输出结果"><a href="#查看输出结果" class="headerlink" title="查看输出结果"></a>查看输出结果</h1><p>HDFS系统下多了个/output 和/tmp目录</p><p>/output目录下面有两个文件（_SUCCESS和part-r-00000），说明已经运行成功了</p><p>直接打开part-r-00000便可以查看结果</p><p><img src="https://wziyang.github.io/images/hadoop/fs_ls_output.png" alt="img"></p><p><code>hadoop fs -cat /output/part-r-00000</code></p><p><img src="https://wziyang.github.io/images/hadoop/part-r-00000.png" alt="img"></p><p>wordcount示例调试完成！</p>]]></content>
+    <content type="html"><![CDATA[<p>附：Hadoop-2.9.0 fs shell：<a href="http://hadoop.apache.org/docs/r2.9.0/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="noopener">http://hadoop.apache.org/docs/r2.9.0/hadoop-project-dist/hadoop-common/FileSystemShell.html</a></p><h1 id="启动Hadoop"><a href="#启动Hadoop" class="headerlink" title="启动Hadoop"></a>启动Hadoop</h1><p><code>./start-all.sh</code></p><p>通过jps指令查看是否正常启动：</p><a id="more"></a><p><img src="https://wziyang.github.io/images/hadoop/jps.png" alt="img"></p><h1 id="在HDFS中创建input目录"><a href="#在HDFS中创建input目录" class="headerlink" title="在HDFS中创建input目录"></a>在HDFS中创建input目录</h1><p><code>hadoop fs -mkdir /input</code></p><p>创建结果：</p><p><code>hadoop fs -ls /</code></p><p><img src="https://wziyang.github.io/images/hadoop/fs_ls.png" alt="img"></p><h1 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h1><p>输入文件：wordcount</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello world hadoop</span><br><span class="line">hello hello hadoop world hello</span><br><span class="line">hadoop world world hello hadoop</span><br></pre></td></tr></table></figure><p>上传：</p><p><code>hadoop fs -put wordcount /input</code></p><h1 id="调用wordcount示例"><a href="#调用wordcount示例" class="headerlink" title="调用wordcount示例"></a>调用wordcount示例</h1><p>调用示例：将/input/wordcount作为输入文件，并将结果输出到/output目录中（输出目录会自动创建）</p><p><code>hadoop jar /var/local/hadoop-2.9.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.0.jarwordcount /input/wordcount /output</code><br>处理过程：</p><p><img src="https://wziyang.github.io/images/hadoop/wordcount处理.png" alt="img"></p><h1 id="查看输出结果"><a href="#查看输出结果" class="headerlink" title="查看输出结果"></a>查看输出结果</h1><p>HDFS系统下多了个/output 和/tmp目录</p><p>/output目录下面有两个文件（_SUCCESS和part-r-00000），说明已经运行成功了</p><p>直接打开part-r-00000便可以查看结果</p><p><img src="https://wziyang.github.io/images/hadoop/fs_ls_output.png" alt="img"></p><p><code>hadoop fs -cat /output/part-r-00000</code></p><p><img src="https://wziyang.github.io/images/hadoop/part-r-00000.png" alt="img"></p><p>wordcount示例调试完成！</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;附：Hadoop-2.9.0 fs shell：&lt;a href=&quot;http://hadoop.apache.org/docs/r2.9.0/hadoop-project-dist/hadoop-common/FileSystemShell.html&quot; target=&quot;_bl
-      
+      &lt;p&gt;附：Hadoop-2.9.0 fs shell：&lt;a href=&quot;http://hadoop.apache.org/docs/r2.9.0/hadoop-project-dist/hadoop-common/FileSystemShell.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://hadoop.apache.org/docs/r2.9.0/hadoop-project-dist/hadoop-common/FileSystemShell.html&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;启动Hadoop&quot;&gt;&lt;a href=&quot;#启动Hadoop&quot; class=&quot;headerlink&quot; title=&quot;启动Hadoop&quot;&gt;&lt;/a&gt;启动Hadoop&lt;/h1&gt;&lt;p&gt;&lt;code&gt;./start-all.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;通过jps指令查看是否正常启动：&lt;/p&gt;
     
     </summary>
     
