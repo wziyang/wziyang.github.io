@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。 git clone https://github.com/elastic/elasticsearch.git git checkout v6.2.4 （本篇博客命令执行皆使用git bash） 1.2 到官网下载可运行的es 编译源码es是一个gradl">
+<meta name="description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。  git clone https://github.com/elastic/elasticsearch.git git checkout v6.2.4 （本篇博客命令执行皆使用git bash） 1.2 到官网下载可运行的es 编译源码es是一个grad">
 <meta name="keywords" content="Elasticsearch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elasticsearch-6.2.4源码启动（window环境下）">
 <meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4源码启动（window环境下）/index.html">
 <meta property="og:site_name" content="程序猿小站">
-<meta property="og:description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。 git clone https://github.com/elastic/elasticsearch.git git checkout v6.2.4 （本篇博客命令执行皆使用git bash） 1.2 到官网下载可运行的es 编译源码es是一个gradl">
+<meta property="og:description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。  git clone https://github.com/elastic/elasticsearch.git git checkout v6.2.4 （本篇博客命令执行皆使用git bash） 1.2 到官网下载可运行的es 编译源码es是一个grad">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://wziyang.github.io/images/源码启动/gradle_idea报错.PNG">
 <meta property="og:image" content="https://wziyang.github.io/images/源码启动/config目录下文件.PNG">
@@ -97,10 +97,10 @@
 <meta property="og:image" content="https://wziyang.github.io/images/源码启动/module缺失.PNG">
 <meta property="og:image" content="https://wziyang.github.io/images/源码启动/类没有.PNG">
 <meta property="og:image" content="https://wziyang.github.io/images/源码启动/勾选传递依赖设置.png">
-<meta property="og:updated_time" content="2018-11-28T02:34:46.478Z">
+<meta property="og:updated_time" content="2018-11-28T02:39:46.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elasticsearch-6.2.4源码启动（window环境下）">
-<meta name="twitter:description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。 git clone https://github.com/elastic/elasticsearch.git git checkout v6.2.4 （本篇博客命令执行皆使用git bash） 1.2 到官网下载可运行的es 编译源码es是一个gradl">
+<meta name="twitter:description" content="获取源码和可运行的es1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。  git clone https://github.com/elastic/elasticsearch.git git checkout v6.2.4 （本篇博客命令执行皆使用git bash） 1.2 到官网下载可运行的es 编译源码es是一个grad">
 <meta name="twitter:image" content="https://wziyang.github.io/images/源码启动/gradle_idea报错.PNG">
 
 
@@ -363,13 +363,13 @@
 
       
         <h1 id="获取源码和可运行的es"><a href="#获取源码和可运行的es" class="headerlink" title="获取源码和可运行的es"></a>获取源码和可运行的es</h1><p>1.1 首先从github上把es的源码拉下来并切换分支到v6.2.4版本（ps：es不同版本源码启动过程差异可能较大）。</p>
+<!-- 阅读全文-->
 <p>git clone <a href="https://github.com/elastic/elasticsearch.git" target="_blank" rel="noopener">https://github.com/elastic/elasticsearch.git</a></p>
 <p>git checkout v6.2.4</p>
 <p>（本篇博客命令执行皆使用git bash）</p>
 <p>1.2 到官网下载可运行的es</p>
 <h1 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h1><p>es是一个gradle项目，导入idea前需执行 gradle idea 命令，不然会报错。</p>
 <p><img src="https://wziyang.github.io/images/源码启动/gradle_idea报错.PNG" alt="img"></p>
-<a id="more"></a>
 <p>使用项目自带的gradlew编译es源码</p>
 <p>./gradlew idea</p>
 <p>./gradlew build</p>
