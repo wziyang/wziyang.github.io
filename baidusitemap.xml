@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yoursite.com/2018/11/28/Hadoop-wordcount/</loc>
+    <loc>http://wziyang.github.io/2018/11/28/Hadoop-wordcount/</loc>
     <lastmod>2018-11-28T05:03:06.263Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/28/MySQL-5.7.22-zip-windows/</loc>
+    <loc>http://wziyang.github.io/2018/11/28/MySQL-5.7.22-zip-windows/</loc>
     <lastmod>2018-11-28T05:02:53.040Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/28/Hadoop-2.9.0-install-linux/</loc>
+    <loc>http://wziyang.github.io/2018/11/28/Hadoop-2.9.0-install-linux/</loc>
     <lastmod>2018-11-28T03:53:03.010Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/27/Elasticsearch-6.2.4-source-plugin-debug/</loc>
+    <loc>http://wziyang.github.io/2018/11/27/Elasticsearch-6.2.4-source-plugin-debug/</loc>
     <lastmod>2018-11-28T03:23:40.023Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/22/Elasticsearch-6.2.4-source-start-window/</loc>
+    <loc>http://wziyang.github.io/2018/11/22/Elasticsearch-6.2.4-source-start-window/</loc>
     <lastmod>2018-11-28T03:23:32.285Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/27/Elasticsearch-6.2.4-plugin-3-highlight/</loc>
+    <loc>http://wziyang.github.io/2018/11/27/Elasticsearch-6.2.4-plugin-3-highlight/</loc>
     <lastmod>2018-11-28T03:22:56.540Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/27/Elasticsearch-6.2.4-plugin-4-analyzer/</loc>
+    <loc>http://wziyang.github.io/2018/11/27/Elasticsearch-6.2.4-plugin-4-analyzer/</loc>
     <lastmod>2018-11-28T03:22:51.713Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/22/Elasticsearch-6.2.4-plugin-2-load/</loc>
+    <loc>http://wziyang.github.io/2018/11/22/Elasticsearch-6.2.4-plugin-2-load/</loc>
     <lastmod>2018-11-28T03:22:42.702Z</lastmod>
   </url>  <url>
-    <loc>http://yoursite.com/2018/11/22/Elasticsearch-6.2.4-plugin-1-kind/</loc>
+    <loc>http://wziyang.github.io/2018/11/22/Elasticsearch-6.2.4-plugin-1-kind/</loc>
     <lastmod>2018-11-28T03:21:53.986Z</lastmod>
   </url>
 </urlset>
