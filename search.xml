@@ -21,6 +21,10 @@
             
             <tag> Elasticsearch </tag>
             
+            <tag> 插件 </tag>
+            
+            <tag> Analyzer </tag>
+            
         </tags>
       
     </entry>
@@ -43,6 +47,10 @@
         <tags>
             
             <tag> Elasticsearch </tag>
+            
+            <tag> 插件 </tag>
+            
+            <tag> Highlight </tag>
             
         </tags>
       
@@ -67,6 +75,10 @@
             
             <tag> Elasticsearch </tag>
             
+            <tag> 插件 </tag>
+            
+            <tag> 源码 </tag>
+            
         </tags>
       
     </entry>
@@ -89,6 +101,10 @@
         <tags>
             
             <tag> Elasticsearch </tag>
+            
+            <tag> 插件 </tag>
+            
+            <tag> 源码 </tag>
             
         </tags>
       
@@ -113,6 +129,8 @@
             
             <tag> Elasticsearch </tag>
             
+            <tag> 插件 </tag>
+            
         </tags>
       
     </entry>
@@ -135,6 +153,10 @@
         <tags>
             
             <tag> Elasticsearch </tag>
+            
+            <tag> 源码 </tag>
+            
+            <tag> idea </tag>
             
         </tags>
       

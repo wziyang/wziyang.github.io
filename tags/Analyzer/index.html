@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="Elasticsearch,插件,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -81,18 +81,13 @@
 
 
 
-<meta name="description" content="插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。">
-<meta name="keywords" content="Elasticsearch,插件">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
-<meta property="og:url" content="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="程序猿小站">
+<meta property="og:url" content="http://yoursite.com/tags/Analyzer/index.html">
 <meta property="og:site_name" content="程序猿小站">
-<meta property="og:description" content="插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-28T03:21:53.986Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-6.2.4插件开发一：插件种类介绍">
-<meta name="twitter:description" content="插件开发ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。">
+<meta name="twitter:title" content="程序猿小站">
 
 
 
@@ -122,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/">
+  <link rel="canonical" href="http://yoursite.com/tags/Analyzer/">
 
 
 
 
 
-  <title>Elasticsearch-6.2.4插件开发一：插件种类介绍 | 程序猿小站</title>
+  <title>Tag: Analyzer | 程序猿小站</title>
   
 
 
@@ -156,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -250,219 +245,52 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>Analyzer<small>Tag</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="橘子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://wziyang.github.io/images/miku.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序猿小站">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4插件开发一：插件种类介绍</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+            <a class="post-title-link" href="/2018/11/27/Elasticsearch-6.2.4插件开发四：分析插件开发/" itemprop="url">
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span itemprop="name">Elasticsearch-6.2.4插件开发四：分析插件开发</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-22T11:03:01+08:00">
-                2018-11-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="插件开发"><a href="#插件开发" class="headerlink" title="插件开发"></a>插件开发</h1><p>ES提供两种方式用于插件开发，一种是继承Plugin抽象类，一种是继承Plugin抽象类后再实现相关的插件接口。</p>
-<a id="more"></a>
-<h1 id="插件种类"><a href="#插件种类" class="headerlink" title="插件种类"></a>插件种类</h1><p><code>ScriptPlugin</code>：脚本插件，ES默认的脚本语言是Painless，可自定义其他脚本语言，java、js等。</p>
-<p><code>AnalysisPlugin</code>：分析插件，可扩展新的分析器，标记器，标记过滤器或字符过滤器等。</p>
-<p><code>DiscoveryPlugin</code>：发现插件，使集群可以发现节点，如使建立在AWS上的集群可以发现节点。</p>
-<p><code>ClusterPlugin</code>：集群插件，增强对集群的管理，如控制分片位置。</p>
-<p><code>IngestPlugin</code>：摄取插件，增强节点的ingest功能，例如可以在ingest中通过tika解析ppt、pdf内容。</p>
-<p><code>MapperPlugin</code>：映射插件，可添加新的字段类型。</p>
-<p><code>SearchPlugin</code>：搜索插件，扩展搜索功能，如添加新的搜索类型，高亮类型等。</p>
-<p><code>RepositoryPlugin</code>：存储库插件，可添加新的存储库，如S3，Hadoop HDFS等。</p>
-<p><code>ActionPlugin</code>：API扩展插件，可扩展Http的API接口。</p>
-<p><code>NetworkPlugin</code>：网络插件，扩展ES底层的网络传输功能。</p>
-<p>除了明确属于不同模块的插件接口外，继承抽象类Plugin可以为索引模块添加新的功能，如添加索引、搜索监听器，新的相似度算法。</p>
-
-      
-    </div>
-    
-    
-    
-    <div>
-          
-            
-<div class="my_post_copyright">
-  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-  <!-- JS库 sweetalert 可修改路径 -->
-  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
-  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
-  <p><span>文章作者:</span><a href="/" title="访问 橘子 的个人博客">橘子</a></p>
-  <p><span>最后更新:</span>2018年11月28日 11:11:53</p>
-  <p><span>原始链接:</span><a href="/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/" title="Elasticsearch-6.2.4插件开发一：插件种类介绍">https://wziyang.github.io/2018/11/22/Elasticsearch-6.2.4插件开发一：插件种类介绍/</a></p>
-  <p><span>版权声明:</span>本博客所有文章除特别声明外，均采用 <i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" title="Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)"> BY-NC-SA 3.0 许可协议</a>，转载请注明出处！</p>  
-</div>
-
-          
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
-          
-            <a href="/tags/插件/" rel="tag"># 插件</a>
-          
-        </div>
-      
-
-      
-      
-        <div class="post-widgets">
+            </a>
         
+      </h2>
 
-        
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2018-11-27T17:23:21+08:00" content="2018-11-27">
+          11-27
+        </time>
+      </div>
 
-        
-          
-          <div id="needsharebutton-postbottom">
-            <span class="btn">
-              <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </span>
-          </div>
-        
-        </div>
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/11/22/Elasticsearch-6.2.4源码启动（window环境下）/" rel="next" title="Elasticsearch-6.2.4源码启动（window环境下）">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-6.2.4源码启动（window环境下）
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/22/Elasticsearch-6.2.4插件开发二：插件的加载过程/" rel="prev" title="Elasticsearch-6.2.4插件开发二：插件的加载过程">
-                Elasticsearch-6.2.4插件开发二：插件的加载过程 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
@@ -470,15 +298,6 @@
 
 
           
-
-  
-    <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTMyMy8xNzg3MA=="></div>
-    </div>
-
-  
-
-
 
         </div>
         
@@ -499,17 +318,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -587,22 +397,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#插件开发"><span class="nav-number">1.</span> <span class="nav-text">插件开发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件种类"><span class="nav-number">2.</span> <span class="nav-text">插件种类</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -743,10 +537,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
@@ -775,17 +565,6 @@
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
   
 
 
