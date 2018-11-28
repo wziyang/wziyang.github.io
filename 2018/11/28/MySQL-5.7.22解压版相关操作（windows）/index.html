@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="Elasticsearch,插件,Highlight,">
+  <meta name="keywords" content="MySQL,">
 
 
 
@@ -81,20 +81,18 @@
 
 
 
-<meta name="description" content="首先，我们需要继承Plugin类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看SearchPlugin里的部分代码：">
-<meta name="keywords" content="Elasticsearch,插件,Highlight">
+<meta name="description" content="安装下载mysql官网：https://dev.mysql.com/downloads/mysql/">
+<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Elasticsearch-6.2.4插件开发三：高亮插件开发">
-<meta property="og:url" content="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/index.html">
+<meta property="og:title" content="MySQL-5.7.22解压版相关操作（windows）">
+<meta property="og:url" content="http://yoursite.com/2018/11/28/MySQL-5.7.22解压版相关操作（windows）/index.html">
 <meta property="og:site_name" content="程序猿小站">
-<meta property="og:description" content="首先，我们需要继承Plugin类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看SearchPlugin里的部分代码：">
+<meta property="og:description" content="安装下载mysql官网：https://dev.mysql.com/downloads/mysql/">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://wziyang.github.io/images/插件/高亮插件uml.png">
-<meta property="og:updated_time" content="2018-11-28T03:22:56.540Z">
+<meta property="og:updated_time" content="2018-11-28T05:02:53.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch-6.2.4插件开发三：高亮插件开发">
-<meta name="twitter:description" content="首先，我们需要继承Plugin类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看SearchPlugin里的部分代码：">
-<meta name="twitter:image" content="https://wziyang.github.io/images/插件/高亮插件uml.png">
+<meta name="twitter:title" content="MySQL-5.7.22解压版相关操作（windows）">
+<meta name="twitter:description" content="安装下载mysql官网：https://dev.mysql.com/downloads/mysql/">
 
 
 
@@ -124,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/28/MySQL-5.7.22解压版相关操作（windows）/">
 
 
 
 
 
-  <title>Elasticsearch-6.2.4插件开发三：高亮插件开发 | 程序猿小站</title>
+  <title>MySQL-5.7.22解压版相关操作（windows） | 程序猿小站</title>
   
 
 
@@ -266,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/MySQL-5.7.22解压版相关操作（windows）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="橘子">
@@ -283,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Elasticsearch-6.2.4插件开发三：高亮插件开发</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL-5.7.22解压版相关操作（windows）</h1>
         
 
         <div class="post-meta">
@@ -295,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T14:23:38+08:00">
-                2018-11-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-28T12:43:11+08:00">
+                2018-11-28
               </time>
             
 
@@ -318,8 +316,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index">
-                    <span itemprop="name">Elasticsearch</span>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -355,16 +353,42 @@
       
 
       
-        <p>首先，我们需要继承<code>Plugin</code>类使插件可以被es初始化时候加载，然后根据实际功能具体实现不同的插件接口，重写相关方法。高亮是搜索阶段的处理，我们可以看看<code>SearchPlugin</code>里的部分代码：</p>
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>mysql官网：<a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/</a></p>
 <a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SearchPlugin</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span> List&lt;ScoreFunctionSpec&lt;?&gt;&gt; getScoreFunctions() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtensionSpec&lt;SignificanceHeuristic, SignificanceHeuristicParser&gt;&gt; getSignificanceHeuristics() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtensionSpec&lt;MovAvgModel, MovAvgModel.AbstractModelParser&gt;&gt; getMovingAverageModels() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;FetchSubPhase&gt; <span class="title">getFetchSubPhases</span><span class="params">(FetchPhaseConstructionContext context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SearchExtSpec&lt;?&gt;&gt; getSearchExts() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 高亮</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Map&lt;String, Highlighter&gt; <span class="title">getHighlighters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;SuggesterSpec&lt;?&gt;&gt; getSuggesters() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;QuerySpec&lt;?&gt;&gt; getQueries() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;AggregationSpec&gt; <span class="title">getAggregations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;PipelineAggregationSpec&gt; <span class="title">getPipelineAggregations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span> List&lt;RescorerSpec&lt;?&gt;&gt; getRescorers() &#123;</span><br><span class="line">        <span class="keyword">return</span> emptyList();</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 以下省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>SearchPlugin</code>下的方法包括了搜索阶段的各种处理，其中就有我们需要的<code>getHighlighters</code>方法，我们只要实现<code>SearchPlugin</code>接口，重写<code>getHighlighter</code>方法即可。</p>
-<p>高亮插件文件结构：</p>
-<p><img src="https://wziyang.github.io/images/插件/高亮插件uml.png" alt="高亮插件uml"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestHighlightSearchPlugin</span> <span class="keyword">extends</span> <span class="title">Plugin</span> <span class="keyword">implements</span> <span class="title">SearchPlugin</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Highlighter&gt; <span class="title">getHighlighters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 返回高亮器</span></span><br><span class="line">        <span class="keyword">return</span> Collections.singletonMap(TestHighlighter.NAME, <span class="keyword">new</span> TestHighlighter());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要返回一个map，key-value具体对应了高亮器的唯一标识，和一个实现了Highlighter接口的高亮器。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Highlighter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">HighlightField <span class="title">highlight</span><span class="params">(HighlighterContext highlighterContext)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">canHighlight</span><span class="params">(FieldMapper fieldMapper)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Highlighter</code>接口里面就很简单了，只有两个方法，其中<code>canHighlight</code>中可以定义高亮器的使用限制条件，就像fvh需要设置<code>&quot;term_vector&quot;: &quot;with_positions_offsets&quot;</code>一样，不需要限制的话默认返回true就行；而重点就是<code>highlight</code>方法了，可以在<code>highlighterContext</code>中拿到搜索返回的内容、分析器、分词等，自己定义高亮逻辑。</p>
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><p>存放相关目录：G:\mysql\mysql-5.7.22-winx64</p>
+<h2 id="配置系统环境变量"><a href="#配置系统环境变量" class="headerlink" title="配置系统环境变量"></a>配置系统环境变量</h2><p>添加：</p>
+<p><code>MYSQL_HOME=G:\mysql\mysql-5.7.22-winx64</code></p>
+<p>Path新增:</p>
+<p><code>MYSQL_HOME\bin</code></p>
+<h2 id="配置my-ini"><a href="#配置my-ini" class="headerlink" title="配置my.ini"></a>配置my.ini</h2><p>相关目录：G:\mysql\mysql-5.7.22-winx64下创建my.ini文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port=3306</span><br><span class="line">default-character-set=utf8</span><br><span class="line"> </span><br><span class="line">[mysqld] </span><br><span class="line"><span class="comment"># 设置为自己MYSQL的安装目录 </span></span><br><span class="line">basedir=G:\mysql\mysql-5.7.22-winx64</span><br><span class="line"><span class="comment"># 设置为MYSQL的数据目录 </span></span><br><span class="line">datadir=G:\mysql\mysql-5.7.22-winx64\data</span><br><span class="line">port=3306</span><br><span class="line">character_set_server=utf8</span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,NO_AUTO_CREATE_USER</span><br><span class="line"><span class="comment">#开启查询缓存</span></span><br><span class="line">explicit_defaults_for_timestamp=<span class="literal">true</span></span><br><span class="line"><span class="comment">#免密登录</span></span><br><span class="line"><span class="comment">#skip-grant-tables</span></span><br><span class="line"><span class="comment">#默认引擎</span></span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line"><span class="built_in">log</span>-error=G:\mysql\mysql-5.7.22-winx64\mysqlerror.log</span><br><span class="line">log_error_verbosity=2</span><br></pre></td></tr></table></figure>
+<h2 id="初始化MySQL"><a href="#初始化MySQL" class="headerlink" title="初始化MySQL"></a>初始化<strong>MySQL</strong></h2><p>打开命令行操作：</p>
+<p><code>mysqld --defaults-file=G:\mysql\mysql-5.7.22-winx64\my.ini --initialize-insecure</code></p>
+<h2 id="安装MySQL服务"><a href="#安装MySQL服务" class="headerlink" title="安装MySQL服务"></a>安装MySQL服务</h2><p><code>mysqld --install</code></p>
+<h2 id="启动MySQL服务"><a href="#启动MySQL服务" class="headerlink" title="启动MySQL服务"></a>启动MySQL服务</h2><p><code>net start mysql</code></p>
+<h2 id="进入MySQL"><a href="#进入MySQL" class="headerlink" title="进入MySQL"></a>进入MySQL</h2><p><code>mysql -uroot -p</code></p>
+<p>初次进入不需要密码。</p>
+<h2 id="修改root用户密码"><a href="#修改root用户密码" class="headerlink" title="修改root用户密码"></a>修改root用户密码</h2><p><code>update mysql.user set authentication_string=password(&quot;新密码&quot;) where user=&quot;root&quot;;</code></p>
+<p>刷新权限表重置密码</p>
+<p><code>flush privileges;</code></p>
+<p>退出</p>
+<p> <code>quit</code></p>
+<h2 id="重启MySQL服务，安装完成"><a href="#重启MySQL服务，安装完成" class="headerlink" title="重启MySQL服务，安装完成"></a>重启MySQL服务，安装完成</h2><p>命令行：</p>
+<p><code>net stop mysql</code></p>
+<p><code>net start mysql</code></p>
+<h1 id="忘记root密码"><a href="#忘记root密码" class="headerlink" title="忘记root密码"></a>忘记root密码</h1><h2 id="停止MySQL服务"><a href="#停止MySQL服务" class="headerlink" title="停止MySQL服务"></a>停止MySQL服务</h2><p><code>net stop mysql</code></p>
+<h2 id="进入安全模式"><a href="#进入安全模式" class="headerlink" title="进入安全模式"></a>进入安全模式</h2><p><code>mysqld -nt --skip-grant-tables</code></p>
+<h2 id="重新启动一个命令行"><a href="#重新启动一个命令行" class="headerlink" title="重新启动一个命令行"></a>重新启动一个命令行</h2><p>免密码进入数据库</p>
+<p><code>mysql -uroot -p</code></p>
+<h2 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h2><p>与前面操作相同。</p>
+<p>修改完成后通过任务管理器关闭mysqld进程，重启服务</p>
+<h1 id="卸载MySQL"><a href="#卸载MySQL" class="headerlink" title="卸载MySQL"></a>卸载MySQL</h1><h2 id="卸载服务"><a href="#卸载服务" class="headerlink" title="卸载服务"></a>卸载服务</h2><p>关闭MySQL服务后，卸载服务</p>
+<p><code>mysqld -remove</code></p>
+<p>卸载完成后删除目录</p>
+<h2 id="清理注册表"><a href="#清理注册表" class="headerlink" title="清理注册表"></a>清理注册表</h2><p>a、HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL 目录删除</p>
+<p>b、HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Eventlog\Application\MySQL 目录删除</p>
+<p>c、HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\MySQL 目录删除</p>
+<p>注册表中的ControlSet001、ControlSet002不一定是001和002，可能是ControlSet005、006之类。</p>
 
       
     </div>
@@ -382,8 +406,8 @@
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
   <p><span>文章作者:</span><a href="/" title="访问 橘子 的个人博客">橘子</a></p>
-  <p><span>最后更新:</span>2018年11月28日 11:11:56</p>
-  <p><span>原始链接:</span><a href="/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/" title="Elasticsearch-6.2.4插件开发三：高亮插件开发">https://wziyang.github.io/2018/11/27/Elasticsearch-6.2.4插件开发三：高亮插件开发/</a></p>
+  <p><span>最后更新:</span>2018年11月28日 13:11:53</p>
+  <p><span>原始链接:</span><a href="/2018/11/28/MySQL-5.7.22解压版相关操作（windows）/" title="MySQL-5.7.22解压版相关操作（windows）">https://wziyang.github.io/2018/11/28/MySQL-5.7.22解压版相关操作（windows）/</a></p>
   <p><span>版权声明:</span>本博客所有文章除特别声明外，均采用 <i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" title="Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)"> BY-NC-SA 3.0 许可协议</a>，转载请注明出处！</p>  
 </div>
 
@@ -399,11 +423,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
-          
-            <a href="/tags/插件/" rel="tag"># 插件</a>
-          
-            <a href="/tags/Highlight/" rel="tag"># Highlight</a>
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
         </div>
       
@@ -431,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/27/Elasticsearch-6.2.4插件源码调试/" rel="next" title="Elasticsearch-6.2.4插件源码调试">
-                <i class="fa fa-chevron-left"></i> Elasticsearch-6.2.4插件源码调试
+              <a href="/2018/11/28/Hadoop示例：wordcount/" rel="next" title="Hadoop示例：wordcount">
+                <i class="fa fa-chevron-left"></i> Hadoop示例：wordcount
               </a>
             
           </div>
@@ -440,10 +460,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/27/Elasticsearch-6.2.4插件开发四：分析插件开发/" rel="prev" title="Elasticsearch-6.2.4插件开发四：分析插件开发">
-                Elasticsearch-6.2.4插件开发四：分析插件开发 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -579,6 +604,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压"><span class="nav-number">1.2.</span> <span class="nav-text">解压</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置系统环境变量"><span class="nav-number">1.3.</span> <span class="nav-text">配置系统环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置my-ini"><span class="nav-number">1.4.</span> <span class="nav-text">配置my.ini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化MySQL"><span class="nav-number">1.5.</span> <span class="nav-text">初始化MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装MySQL服务"><span class="nav-number">1.6.</span> <span class="nav-text">安装MySQL服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动MySQL服务"><span class="nav-number">1.7.</span> <span class="nav-text">启动MySQL服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进入MySQL"><span class="nav-number">1.8.</span> <span class="nav-text">进入MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改root用户密码"><span class="nav-number">1.9.</span> <span class="nav-text">修改root用户密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启MySQL服务，安装完成"><span class="nav-number">1.10.</span> <span class="nav-text">重启MySQL服务，安装完成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#忘记root密码"><span class="nav-number">2.</span> <span class="nav-text">忘记root密码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#停止MySQL服务"><span class="nav-number">2.1.</span> <span class="nav-text">停止MySQL服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进入安全模式"><span class="nav-number">2.2.</span> <span class="nav-text">进入安全模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新启动一个命令行"><span class="nav-number">2.3.</span> <span class="nav-text">重新启动一个命令行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改密码"><span class="nav-number">2.4.</span> <span class="nav-text">修改密码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卸载MySQL"><span class="nav-number">3.</span> <span class="nav-text">卸载MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载服务"><span class="nav-number">3.1.</span> <span class="nav-text">卸载服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清理注册表"><span class="nav-number">3.2.</span> <span class="nav-text">清理注册表</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
